@@ -1,5 +1,6 @@
 module.exports = {
-  output: 'export',  // Ensure static export is enabled
-  trailingSlash: true, // Ensures proper handling of URLs ending with '/'
-  basePath: '/next-report-app', // Replace with your actual repository name
+  output: 'export', // For static export
+  trailingSlash: true, // Ensure URLs end with a trailing slash
+  basePath: '/next-report-app', // Replace with your repository name
+  assetPrefix: '/next-report-app/', // Important for asset paths to resolve correctly
 };
