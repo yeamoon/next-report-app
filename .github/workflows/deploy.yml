@@ -40,8 +40,8 @@ jobs:
 
       - name: Set up Git user identity
         run: |
-          git config --global user.email "your-email@example.com"
-          git config --global user.name "your-username"
+          git config --global user.email "yeamoonsultana@gmail.com"
+          git config --global user.name "yeamoon"
 
       - name: Set up Git authentication
         run: |
@@ -49,6 +49,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          npx gh-pages -d out/next-report-app
+          npx gh-pages -d out
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
