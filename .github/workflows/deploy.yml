@@ -21,10 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build and Export Project
-        run: |
-          npm run build
-          npm run export
+      - name: Build Project
+        run: npm run build
 
       - name: Clean up old build files
         run: rm -rf out
@@ -39,7 +37,6 @@ jobs:
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
 
       - name: Deploy to GitHub Pages
-        run: |
-          npx gh-pages -d out
+        run: npx gh-pages -d out
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
