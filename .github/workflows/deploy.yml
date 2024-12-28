@@ -24,17 +24,13 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Clean up old build files
-        run: rm -rf out
+      - name: Verify `out` directory exists
+        run: ls -la out
 
       - name: Set up Git user identity
         run: |
           git config --global user.email "yeamoonsultana@gmail.com"
           git config --global user.name "yeamoon"
-
-      - name: Set up Git authentication
-        run: |
-          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
 
       - name: Deploy to GitHub Pages
         run: npx gh-pages -d out
