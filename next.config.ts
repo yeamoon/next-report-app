@@ -1,6 +1,8 @@
-module.exports = {
-  output: 'export', // For static export
-  trailingSlash: true, // Ensure URLs end with a trailing slash
-  basePath: '/next-report-app', // Replace with your repository name
-  assetPrefix: '/next-report-app/', // Important for asset paths to resolve correctly
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export', // Ensures the app is exported as static files
+  basePath: '/next-report-app', // Use the repository name here
+  assetPrefix: '/next-report-app/', // Prefix static assets with the repository name
 };
+
+module.exports = nextConfig;
