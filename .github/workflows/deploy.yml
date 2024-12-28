@@ -24,13 +24,21 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Export Project
+        run: npm run export
+
       - name: Verify `out` directory exists
         run: ls -la out
 
+      - name: Create 'next-report-app' directory
+        run: |
+          mkdir -p out/next-report-app
+          mv out/* out/next-report-app/
+
       - name: Set up Git user identity
         run: |
-          git config --global user.email "yeamoonsultana@gmail.com"
-          git config --global user.name "yeamoon"
+          git config --global user.email "your-email@example.com"
+          git config --global user.name "your-username"
 
       - name: Set up Git authentication
         run: |
@@ -38,6 +46,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          npx gh-pages -d out
+          npx gh-pages -d out/next-report-app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
