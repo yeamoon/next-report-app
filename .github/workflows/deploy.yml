@@ -21,8 +21,13 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Project
-        run: npm run build
+      - name: Build and Export Project
+        run: |
+          npm run build
+          npm run export
+
+      - name: Clean up old build files
+        run: rm -rf out
 
       - name: Set up Git user identity
         run: |
