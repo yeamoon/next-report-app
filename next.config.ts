@@ -1,9 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export', // Ensures the app is exported as static files
-  basePath: '/next-report-app', // Use the repository name here
-  assetPrefix: '/next-report-app',
-  
+module.exports = {
+  basePath: '/next-report-app',  // This should match the subpath for your GitHub Pages deployment
+  assetPrefix: '/next-report-app', // Ensures assets like JS, CSS, images are loaded from the right path
+  output: 'export', // Make sure you are using the export output format for static export
 };
-
-module.exports = nextConfig;
