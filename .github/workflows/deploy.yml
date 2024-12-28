@@ -29,10 +29,13 @@ jobs:
       - name: Verify `out` directory exists
         run: ls -la out
 
-      - name: Create 'next-report-app' directory
+      - name: Move files into 'next-report-app' directory
         run: |
+          mkdir temp
+          mv out/* temp/
           mkdir -p out/next-report-app
-          mv out/* out/next-report-app/
+          mv temp/* out/next-report-app/
+          rm -rf temp
 
       - name: Set up Git user identity
         run: |
