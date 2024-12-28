@@ -26,8 +26,7 @@ jobs:
 
  
 
-      - name: Verify `out` directory exists
-        run: ls -la out
+
 
       - name: Move exported files into 'next-report-app' directory
         run: |
@@ -36,6 +35,8 @@ jobs:
           mkdir -p out/next-report-app
           mv temp/* out/next-report-app/
           rm -rf temp
+      - name: Verify the `out/next-report-app` directory
+        run: ls -la out/next-report-app
 
       - name: Set up Git user identity
         run: |
