@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '19'
+          node-version: '18'
 
       # Install project dependencies
       - name: Install dependencies
@@ -32,15 +32,15 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      # Run tests (unit tests and Playwright tests)
+      # Export Static Files
+      - name: Export Static Files
+        run: npm run export
+
+      # Run Tests (Unit and Playwright Tests)
       - name: Run tests
         run: |
           npm run test
           npx playwright test
-
-      # Export static files after the build
-      - name: Export Static Files
-        run: npm run export
 
       # Serve the static files using serve instead of next start
       - name: Serve Static Files
