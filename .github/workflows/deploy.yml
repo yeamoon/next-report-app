@@ -24,9 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      # Install Playwright for end-to-end tests
-      - name: Install Playwright
-        run: npx playwright install
+    
 
       # Build the project (creates .next and out)
       - name: Build Project
@@ -37,7 +35,7 @@ jobs:
       # Run Tests (Unit and Playwright Tests)
       - name: Run tests
         run: |
-          npm run test
+          npm test
         
 
       # Serve the static files using serve instead of next start
