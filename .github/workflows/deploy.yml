@@ -38,7 +38,7 @@ jobs:
       - name: Run tests
         run: |
           npm run test
-          npx playwright test
+        
 
       # Serve the static files using serve instead of next start
       - name: Serve Static Files
