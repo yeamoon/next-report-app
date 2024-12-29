@@ -1,7 +1,6 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger deploy on push to the `main` branch
   push:
     branches:
       - main
@@ -29,9 +28,11 @@ jobs:
       - name: Install Playwright
         run: npx playwright install
 
+      # Run build command to create the production build
+      - name: Build Project
+        run: npm run build
 
-
-      # Run tests after the dev server is up
+      # Run tests after the build is completed
       - name: Run tests
         run: |
           npm run test
@@ -48,8 +49,8 @@ jobs:
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
 
-      # Build and export the site for static deployment to GitHub Pages
-      - name: Build and Export the Project
+      # Export static files after build
+      - name: Export Static Files
         run: npm run export
 
       # Deploy the static files to GitHub Pages
