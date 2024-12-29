@@ -53,6 +53,11 @@ jobs:
       - name: Export Static Files
         run: npm run export
 
+      # Serve the static files using 'serve' instead of 'next start'
+      - name: Serve Static Files
+        run: |
+          npx serve out
+
       # Deploy the static files to GitHub Pages
       - name: Deploy to GitHub Pages
         run: |
