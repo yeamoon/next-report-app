@@ -29,7 +29,8 @@ jobs:
       - name: Install Playwright
         run: npx playwright install
 
-      # Run development server to ensure everything is built correctly
+      # Run development server to ensure everything is built correctly (optional for local development)
+      # If you don't need this, you can remove this block as it runs the dev server locally.
       - name: Run development server
         run: |
           npm run dev & npx wait-on http://localhost:3000
@@ -41,7 +42,7 @@ jobs:
           npm run test
           npx playwright test
 
-      # Set up Git user identity for pushing changes
+      # Set up Git user identity for pushing changes to gh-pages
       - name: Set up Git user identity
         run: |
           git config --global user.email "yeamoonsultana@gmail.com"
@@ -52,7 +53,11 @@ jobs:
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
 
-      # Deploy the built application to GitHub Pages
+      # Build and export the site for static deployment to GitHub Pages
+      - name: Build and Export the Project
+        run: npm run export
+
+      # Deploy the static files to GitHub Pages
       - name: Deploy to GitHub Pages
         run: |
           npx gh-pages -d out
