@@ -4,14 +4,14 @@
   "private": true,
 "scripts": {
   "dev": "next dev --turbopack",
-  "build": "next build",
-  "start": "next start",
+  "build": "next build && next export", // Build and export the static files
+  "start": "npx serve out",             // Serve the exported static files
   "lint": "next lint",
-  "test": "vitest src/tests/vite.test.ts", 
-  "export": "next export",
-  "serve": "npx serve out",
-  "deploy": "gh-pages -d out"
-},
+  "test": "vitest src/tests/vite.test.ts",
+  "export": "next export",             // Explicit command to export static files
+  "deploy": "gh-pages -d out"          // Deploy to GitHub Pages
+}
+,
 "dependencies": {
   "@radix-ui/react-icons": "^1.3.0",
   "@radix-ui/react-slot": "^1.1.0",
