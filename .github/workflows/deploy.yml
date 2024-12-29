@@ -38,10 +38,7 @@ jobs:
           npm test
         
 
-      # Serve the static files using serve instead of next start
-      - name: Serve Static Files
-        run: |
-          npx serve out
+  
 
       # Set up Git user identity for pushing changes to gh-pages
       - name: Set up Git user identity
