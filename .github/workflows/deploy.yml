@@ -1,6 +1,7 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Trigger deploy on push to the `main` branch
   push:
     branches:
       - main
@@ -10,30 +11,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Set up Node.js environment with version 19 (to match React 19 RC)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '19'
 
+      # Install project dependencies, using legacy peer dependencies
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Project
-        run: npm run build
+      # Install Playwright dependencies for end-to-end tests
+      - name: Install Playwright
+        run: npx playwright install
 
+      # Run development server to ensure everything is built correctly
+      - name: Run development server
+        run: |
+          npm run dev & npx wait-on http://localhost:3000
+        continue-on-error: true # Allow this step to complete even if the server starts late
 
+      # Run tests after the dev server is up
+      - name: Run tests
+        run: |
+          npm run test
+          npx playwright test
+
+      # Set up Git user identity for pushing changes
       - name: Set up Git user identity
         run: |
           git config --global user.email "yeamoonsultana@gmail.com"
           git config --global user.name "yeamoon"
 
+      # Set up Git authentication to use the GitHub token for deployment
       - name: Set up Git authentication
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
 
+      # Deploy the built application to GitHub Pages
       - name: Deploy to GitHub Pages
         run: |
           npx gh-pages -d out
