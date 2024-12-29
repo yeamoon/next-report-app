@@ -14,29 +14,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Node.js environment with version 19 (to match React 19 RC)
+      # Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '19'
 
-      # Install project dependencies, using legacy peer dependencies
+      # Install project dependencies
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      # Install Playwright dependencies for end-to-end tests
+      # Install Playwright for end-to-end tests
       - name: Install Playwright
         run: npx playwright install
 
-      # Run build command to create the production build
+      # Build the project (creates .next and out)
       - name: Build Project
         run: npm run build
 
-      # Run tests after the build is completed
+      # Run tests (unit tests and Playwright tests)
       - name: Run tests
         run: |
           npm run test
           npx playwright test
+
+      # Export static files after the build
+      - name: Export Static Files
+        run: npm run export
+
+      # Serve the static files using serve instead of next start
+      - name: Serve Static Files
+        run: |
+          npx serve out
 
       # Set up Git user identity for pushing changes to gh-pages
       - name: Set up Git user identity
@@ -44,21 +53,12 @@ jobs:
           git config --global user.email "yeamoonsultana@gmail.com"
           git config --global user.name "yeamoon"
 
-      # Set up Git authentication to use the GitHub token for deployment
+      # Set up Git authentication
       - name: Set up Git authentication
         run: |
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
 
-      # Export static files after build
-      - name: Export Static Files
-        run: npm run export
-
-      # Serve the static files using 'serve' instead of 'next start'
-      - name: Serve Static Files
-        run: |
-          npx serve out
-
-      # Deploy the static files to GitHub Pages
+      # Deploy to GitHub Pages (static files in 'out' folder)
       - name: Deploy to GitHub Pages
         run: |
           npx gh-pages -d out
